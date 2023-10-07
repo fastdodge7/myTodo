@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+</head>
+<body>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Task</th>
+        <th>Created date</th>
+        <th>Due date</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="todo : ${todoList}">
+        <td th:text="${todo.id}"></td>
+        <td th:text="${todo.task}"></td>
+        <td th:text="${todo.createdDate}"></td>
+        <td th:text="${todo.dueDate}"></td>
+        <td th:text="${todo.owner.getName()}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

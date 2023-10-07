@@ -1,0 +1,1 @@
+Insert into TODO_USER values (1, 'fastdodge7@gmail.com', '정민규');
