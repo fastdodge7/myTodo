@@ -2,19 +2,35 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link href="webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
     <title>Todo List</title>
 </head>
 <body>
+    <div class = "container">
+        <form method="post">
+            <div class="form-group">
+                <label for="todoNameInput">Name</label>
+                <input type="text" name = "name" class="form-control" id="todoNameInput" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="todoTaskDesc">Task Description</label>
+                <input type="text" name="task" class="form-control" id="todoTaskDesc" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="todoDueDate">Due date</label>
+                <input type="datetime-local" name="dueDate" class="form-control" id="todoDueDate" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="todoOwnerId">Owner Id</label>
+                <input type="number" class="form-control" name="ownerId" id="todoOwnerId" aria-describedby="emailHelp">
+            </div>
+            <input type="submit" class = "btn btn-success" value="TODO 등록">
+        </form>
+    </div>
 
-  <form method="post">
 
-    Name: <input type="text" name="name">
-    Task: <input type="text" name="task">
-      Due date: <input type="datetime-local" name="dueDate">
-      Owner Id: <input type="number" name="ownerId">
-
-    <input type="submit" value="todo 등록">
-  </form>
-
+  <script src="webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+  <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
 </body>
 </html>

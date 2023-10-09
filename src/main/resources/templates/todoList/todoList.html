@@ -2,12 +2,16 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
+    <link href="webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Todo List</title>
 </head>
 <body>
+  <div class="container">
+    <h1> Your Todo! </h1>
 
-  <table>
-    <thead>
+    <table class = "table">
+      <thead>
       <tr>
         <th>Id</th>
         <th>Task</th>
@@ -15,8 +19,8 @@
         <th>Due date</th>
         <th>Owner</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr th:each="todo : ${todoList}">
         <td th:text="${todo.id}"></td>
         <td th:text="${todo.task}"></td>
@@ -24,8 +28,14 @@
         <td th:text="${todo.dueDate}"></td>
         <td th:text="${todo.owner.getName()}"></td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+
+    <a href="register-todo" class = "btn btn-success">TODO 추가하기</a>
+  </div>
+
+  <script src="webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+  <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
 
 </body>
 </html>
