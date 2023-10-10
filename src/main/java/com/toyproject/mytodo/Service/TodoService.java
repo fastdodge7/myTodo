@@ -34,6 +34,12 @@ public class TodoService {
     }
 
     @Transactional
+    public List<Todo> findByOwner(User user){
+        return todoRepository.findByOwner(user);
+    }
+
+
+    @Transactional
     public Todo saveTodo(Todo todo){
         todoRepository.save(todo);
         return todo;

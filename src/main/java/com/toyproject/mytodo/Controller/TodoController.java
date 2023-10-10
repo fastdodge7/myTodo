@@ -33,8 +33,10 @@ public class TodoController {
     }
 
     @GetMapping("list-todo")
-    public String listAllTodo(Model model){
-        model.addAttribute("todoList", todoService.findAll());
+    public String listAllTodo(@SessionAttribute(value = "loginUser", required = false) User loginUser, Model model){
+        if(loginUser == null) throw new LoginUserNotFoundException("현재 로그인되지 않은 상태입니다.");
+
+        model.addAttribute("todoList", todoService.findByOwner(loginUser));
         return "todoList/todoList";
     }
 
@@ -45,12 +47,15 @@ public class TodoController {
 
     @PostMapping("register-todo")
     public String registerTodo(@Valid TodoFormDto todoFormDto,
+                               BindingResult result,
                                @SessionAttribute(value = "loginUser", required = false) User loginUser,
-                               BindingResult result){
+                               Model model){
+
         if(loginUser == null) throw new LoginUserNotFoundException("현재 로그인되지 않은 상태입니다.");
         if(result.hasErrors()){
-            return "todoList/registerTodo";
+            return "todoList/registerTodoFail";
         }
+
 
         todoService.addTodo(todoFormDto, loginUser);
         return "redirect:/list-todo";

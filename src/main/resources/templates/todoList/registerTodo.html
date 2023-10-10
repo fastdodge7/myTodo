@@ -9,6 +9,7 @@
 <body>
     <div class = "container">
         <form method="post">
+            <span th:text="|${errMessage}|"></span>
             <div class="form-group">
                 <label for="todoNameInput">Name</label>
                 <input type="text" name = "name" class="form-control" id="todoNameInput" aria-describedby="emailHelp">

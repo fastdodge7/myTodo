@@ -1,8 +1,11 @@
 package com.toyproject.mytodo.Repository.Todo;
 
 import com.toyproject.mytodo.Entity.Todo;
+import com.toyproject.mytodo.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TodoJpaDataRepository extends JpaRepository<Todo, Long> {
+import java.util.List;
 
+public interface TodoJpaDataRepository extends JpaRepository<Todo, Long> {
+    public List<Todo> findByOwner(User owner);
 }

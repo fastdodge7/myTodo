@@ -22,7 +22,7 @@ public class AuthenticationService {
     public User authenticationWithNameAndEmail(String name, String email){
 
         List<User> users = userService.findByEmail(email).stream()
-                .filter((element) -> element.getEmail().equals(email))
+                .filter((element) -> element.getName().equals(name))
                 .toList();
 
         if(users.size() > 1) throw new DuplicatedUserException("이메일, 이름 정보가 중복되는 이용자가 있습니다.");
