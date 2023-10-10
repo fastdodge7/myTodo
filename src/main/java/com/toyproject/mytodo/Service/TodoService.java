@@ -1,5 +1,6 @@
 package com.toyproject.mytodo.Service;
 
+import com.toyproject.mytodo.Dto.TodoFormDto;
 import com.toyproject.mytodo.Entity.Todo;
 import com.toyproject.mytodo.Entity.User;
 import com.toyproject.mytodo.Repository.Todo.TodoRepository;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +19,18 @@ public class TodoService {
     @Autowired
     public TodoService(TodoRepository todoRepository){
         this.todoRepository = todoRepository;
+    }
+
+    @Transactional
+    public Todo addTodo(TodoFormDto todoFormDto, User loginUser){
+        Todo newTodo = Todo.builder()
+                .task(todoFormDto.getTask())
+                .createdDate(LocalDateTime.now())
+                .dueDate(todoFormDto.getDueDate())
+                .name(todoFormDto.getName())
+                .owner(loginUser).build();
+
+        return this.saveTodo(newTodo);
     }
 
     @Transactional

@@ -10,9 +10,11 @@ import com.toyproject.mytodo.Exceptions.AccessServiceWithoutLoginException;
 import com.toyproject.mytodo.Exceptions.LoginUserNotFoundException;
 import com.toyproject.mytodo.Service.TodoService;
 import com.toyproject.mytodo.Service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -42,18 +44,15 @@ public class TodoController {
     }
 
     @PostMapping("register-todo")
-    public String registerTodo(TodoFormDto todoFormDto, @SessionAttribute(value = "loginUser", required = false) User loginUser){
-
+    public String registerTodo(@Valid TodoFormDto todoFormDto,
+                               @SessionAttribute(value = "loginUser", required = false) User loginUser,
+                               BindingResult result){
         if(loginUser == null) throw new LoginUserNotFoundException("현재 로그인되지 않은 상태입니다.");
+        if(result.hasErrors()){
+            return "todoList/registerTodo";
+        }
 
-        Todo newTodo = Todo.builder()
-                .task(todoFormDto.getTask())
-                .createdDate(LocalDateTime.now())
-                .dueDate(todoFormDto.getDueDate())
-                .name(todoFormDto.getName())
-                .owner(loginUser).build();
-
-        todoService.saveTodo(newTodo);
+        todoService.addTodo(todoFormDto, loginUser);
         return "redirect:/list-todo";
     }
 
