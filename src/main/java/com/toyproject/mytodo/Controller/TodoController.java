@@ -11,6 +11,7 @@ import com.toyproject.mytodo.Exceptions.LoginUserNotFoundException;
 import com.toyproject.mytodo.Service.TodoService;
 import com.toyproject.mytodo.Service.UserService;
 import jakarta.validation.Valid;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,11 +54,53 @@ public class TodoController {
 
         if(loginUser == null) throw new LoginUserNotFoundException("현재 로그인되지 않은 상태입니다.");
         if(result.hasErrors()){
-            return "todoList/registerTodoFail";
+            return "todoList/failAlarmPage/registerTodoFail";
         }
 
-
         todoService.addTodo(todoFormDto, loginUser);
+        return "redirect:/list-todo";
+    }
+
+    @GetMapping("delete-todo")
+    public String deleteTodo(Model model,
+                             @RequestParam Long id,
+                             @SessionAttribute(value = "loginUser") User loginUser) {
+
+        try{
+            todoService.deleteTodoById(id, loginUser);
+        }catch(IllegalStateException e){
+            return "todoList/failAlarmPage/deleteTodoFail";
+        }
+        return "redirect:/list-todo";
+    }
+
+    @GetMapping("update-todo")
+    public String updateTodo(Model model,
+                             @RequestParam Long id,
+                             @SessionAttribute(value = "loginUser", required = false) User loginUser) {
+        try{
+            Todo target = todoService.findById(id).orElseThrow(() -> new IllegalStateException());
+            if (loginUser == null) throw new LoginUserNotFoundException();
+            if (target.getOwner().getId() != loginUser.getId()) throw new IllegalLoginUserException();
+
+            model.addAttribute("beforeTodo", target);
+        }catch(IllegalStateException e){
+            return "todoList/failAlarmPage/deleteTodoFail";
+        }
+        return "todoList/updateTodo";
+    }
+
+    @PostMapping("update-todo")
+    public String updateTodo(Model model,
+                             @RequestParam Long id,
+                             @SessionAttribute(value = "loginUser", required = false) User loginUser,
+                             TodoFormDto updateDto) {
+
+        try{
+            todoService.updateTodoById(id, loginUser, updateDto);
+        }catch(IllegalStateException e){
+            return "todoList/failAlarmPage/deleteTodoFail";
+        }
         return "redirect:/list-todo";
     }
 

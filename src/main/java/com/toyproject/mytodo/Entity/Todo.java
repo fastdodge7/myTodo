@@ -1,6 +1,7 @@
 package com.toyproject.mytodo.Entity;
 
 
+import com.toyproject.mytodo.Dto.TodoFormDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,5 +47,15 @@ public class Todo {
         this.createdDate = createdDate;
         this.dueDate = dueDate;
         this.owner = owner;
+    }
+
+    public void updateTodo(TodoFormDto updateDto) {
+        this.name = updateDto.getName();
+        this.task = updateDto.getTask();
+        this.dueDate = updateDto.getDueDate();
+    }
+
+    public void checkDone() {
+        this.done = true;
     }
 }

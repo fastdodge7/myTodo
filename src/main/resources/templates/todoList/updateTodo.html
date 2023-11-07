@@ -12,15 +12,15 @@
             <span th:text="|${errMessage}|"></span>
             <div class="form-group">
                 <label for="todoNameInput">Name</label>
-                <input type="text" name = "name" class="form-control" id="todoNameInput" aria-describedby="emailHelp">
+                <input type="text" name = "name" class="form-control" id="todoNameInput" aria-describedby="emailHelp" th:value="${beforeTodo.name}">
             </div>
             <div class="form-group">
                 <label for="todoTaskDesc">Task Description</label>
-                <input type="text" name="task" class="form-control" id="todoTaskDesc" aria-describedby="emailHelp">
+                <input type="text" name="task" class="form-control" id="todoTaskDesc" aria-describedby="emailHelp" th:value="${beforeTodo.task}">
             </div>
             <div class="form-group">
                 <label for="todoDueDate">Due date</label>
-                <input type="datetime-local" name="dueDate" class="form-control" id="todoDueDate" aria-describedby="emailHelp">
+                <input type="datetime-local" name="dueDate" class="form-control" id="todoDueDate" aria-describedby="emailHelp" th:value="${beforeTodo.dueDate}">
             </div>
             <input type="submit" class = "btn btn-success" value="TODO 등록">
         </form>

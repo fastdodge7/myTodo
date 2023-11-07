@@ -56,9 +56,24 @@ public class TodoService {
     }
 
     @Transactional
-    public Long deleteTodoById(Long id){
+    public Long deleteTodoById(Long id, User loginUser){
+        Optional<Todo> targetTodo = todoRepository.findById(id);
+        if(targetTodo.isEmpty() || loginUser.getId() != targetTodo.get().getId()) {
+            throw new IllegalStateException();
+        }
         todoRepository.deleteById(id);
         return id;
+    }
+
+    @Transactional
+    public Todo updateTodoById(Long id, User loginUser, TodoFormDto updateDto){
+        Optional<Todo> targetTodo = todoRepository.findById(id);
+        if(targetTodo.isEmpty() || loginUser.getId() != targetTodo.get().getId()) {
+            throw new IllegalStateException();
+        }
+        Todo modTarget = targetTodo.get();
+        modTarget.updateTodo(updateDto);
+        return modTarget;
     }
 
     @Transactional

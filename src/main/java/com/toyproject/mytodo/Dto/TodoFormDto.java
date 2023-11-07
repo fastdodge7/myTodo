@@ -21,6 +21,4 @@ public class TodoFormDto {
 
     @NotNull
     private final LocalDateTime dueDate;
-
-    private final Long ownerId;
 }
