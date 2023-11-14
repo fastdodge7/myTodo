@@ -7,9 +7,10 @@
   <title>Login Page</title>
 </head>
 <body>
+  <div th:replace="/fragments/nav.html :: fragment-nav"></div>
 
   <div class = "container">
-    Welcome to Our page, <span th:text="${loginUser.getName()}"></span>!!
+    Welcome to Our page, <span th:text="|${name}!!|"></span>
   </div>
   <script src="webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
   <script src="webjars/jquery/3.7.1/jquery.min.js"></script>

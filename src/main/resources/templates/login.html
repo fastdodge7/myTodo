@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org" lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <link href="webjars/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Login Page</title>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
 </head>
 <body>
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
     <div class = "container">
         <h1>Welcome to Login Page!</h1>
         <pre th:text="${errorMessage}"></pre>
@@ -24,7 +22,7 @@
 
         <a href="register-user" class="btn btn-primary">회원가입</a>
     </div>
-    <script src="webjars/bootstrap/5.3.2/js/bootstrap.min.js"></script>
-    <script src="webjars/jquery/3.7.1/jquery.min.js"></script>
+
+    <div th:replace="/fragments/footer.html :: fragment-footer"></div>
 </body>
 </html>
